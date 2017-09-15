@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Movie {
 
     public String getPosterPath() {
-        return String.format("https://image.tmdb.org/t/p/w342/%s",posterPath);
+        return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
     }
 
     public String getOriginalTitle() {
@@ -24,30 +24,36 @@ public class Movie {
         return overview;
     }
 
+    public String getBackDropPath() {
+        return String.format("https://image.tmdb.org/t/p/w342/%s", backDropPath);
+    }
+
     String posterPath;
     String originalTitle;
     String overview;
+    String backDropPath;
 
 
-    public Movie (JSONObject jsonObject) throws JSONException {
+    public Movie(JSONObject jsonObject) throws JSONException {
         this.posterPath = jsonObject.getString("poster_path");
         this.originalTitle = jsonObject.getString("original_title");
         this.overview = jsonObject.getString("overview");
+        this.backDropPath = jsonObject.getString("backdrop_path");
 
     }
 
 
-    public static ArrayList<Movie> fromJsonArray (JSONArray array) {
+    public static ArrayList<Movie> fromJsonArray(JSONArray array) {
 
         ArrayList<Movie> results = new ArrayList<>();
 
-        for (int i =0; i< array.length(); i++) {
+        for (int i = 0; i < array.length(); i++) {
             try {
-                results.add(new Movie (array.getJSONObject(i)));
+                results.add(new Movie(array.getJSONObject(i)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-    return results;
+        return results;
     }
 }
