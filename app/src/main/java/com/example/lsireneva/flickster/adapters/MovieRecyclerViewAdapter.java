@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.lsireneva.flickster.R;
@@ -64,6 +65,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivBackDrop;
+        ProgressBar progressBar;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
@@ -72,16 +74,32 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             tvOverview = (TextView) itemView.findViewById(R.id.tvOverview);
             ivBackDrop = (ImageView) itemView.findViewById(ivBackdrop);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
         }
 
         public void setupMovieView(Movie movie) {
             this.movie = movie;
             if (this.ivImage != null) {
+                // Show progress bar
+                progressBar.setVisibility(View.VISIBLE);
                 Picasso.with(itemView.getContext()).load(movie.getPosterPath())
                         .resize(600, 0)
                         //.placeholder(R.drawable.placeholder)
+                        //.error(R.drawable.placeholder_error)
                         .transform(new RoundedCornersTransformation(15, 15, RoundedCornersTransformation.CornerType.ALL))
-                        .into(ivImage);
+                        .into(ivImage, new com.squareup.picasso.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                if (progressBar != null) {
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+                        });
 
             }
 
@@ -91,11 +109,24 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
                 Picasso.with(itemView.getContext()).load(movie.getBackDropPath())
                         .resize(900, 0)
                         //.placeholder(R.drawable.placeholder)
+                        //.error(R.drawable.placeholder_error)
                         .transform(new RoundedCornersTransformation(15, 15, RoundedCornersTransformation.CornerType.ALL))
-                        .into(ivBackDrop);
+                        .into(ivBackDrop, new com.squareup.picasso.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                if (progressBar != null) {
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+                        });
+
 
             }
-
 
             this.tvTitle.setText(movie.getOriginalTitle());
             this.tvOverview.setText(movie.getOverview());
