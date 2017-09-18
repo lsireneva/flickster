@@ -38,7 +38,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 <img src='https://i.imgur.com/PGGlkez.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-<img src='https://i.imgur.com/g0m4uh0.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/izJU9xV.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 GIF created with Vokoscreen
